@@ -87,7 +87,7 @@ def main():
                         default="")
     parser.add_argument('--verbose', dest='verbose', help='Verbose mode',
                         default=False, action='store_const', const=True)
-    parser.add_argument('--output', dest='output_type', default='procstreams',
+    parser.add_argument('--output', dest='output_type', default='localterm',
                         action='store',
                         help="Set where output is to be printed. 'procstreams'" 
                              " prints output in stdout/stderr of running process"
@@ -134,7 +134,7 @@ def main():
     if args.output_type == 'localterm':
         # Create new IPC connection to the process.
         ipc = pyrasite.PyrasiteIPC(pid, 'ReversePythonConnection',
-                                   timeout=ipc_timeout)
+                                   timeout=args.ipc_timeout)
         ipc.connect()
         print("Pyrasite Shell %s" % pyrasite.__version__)
         print("Connected to '%s'" % ipc.title)
